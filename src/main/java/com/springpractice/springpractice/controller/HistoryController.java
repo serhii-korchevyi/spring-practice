@@ -16,13 +16,13 @@ public class HistoryController {
     }
 
     @PutMapping("history/update-action/{id}")
-    public String updateActionInHistory() {
-        return "history update";
+    public String updateActionInHistory(@PathVariable Long id) {
+        return "history update with id " + id;
     }
 
     @DeleteMapping("/history/delete/{id}")
-    public String deleteActionFromHistory() {
-        return "history delte";
+    public String deleteActionFromHistory(@PathVariable Long id) {
+        return "history delte with id " + id;
     }
 
 }
