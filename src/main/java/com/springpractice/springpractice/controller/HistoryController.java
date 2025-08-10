@@ -1,5 +1,6 @@
 package com.springpractice.springpractice.controller;
 
+import com.springpractice.springpractice.entity.History;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import justfordemo.JustForDemo;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class HistoryController {
@@ -54,23 +57,24 @@ public class HistoryController {
 
 
     @GetMapping("/history")
-    public String getHistory() {
-        return this.historyService.getHistory();
+    public List<History> getHistory() {
+        return this.historyService.getHistoryList();
     }
 
     @PostMapping("history/add-action")
     public String addActionToHistory() {
+        this.historyService.addActionToHistory();
         return "history create";
     }
 
-    @PutMapping("history/update-action/{id}")
-    public String updateActionInHistory(@PathVariable Long id) {
-        return "history update with id " + id;
+    @PutMapping("history/update-action/{actionId}")
+    public void updateActionInHistory(@PathVariable int actionId) {
+        this.historyService.historyActionUpdate(actionId);
     }
 
-    @DeleteMapping("/history/delete/{id}")
-    public String deleteActionFromHistory(@PathVariable Long id) {
-        return "history delte with id " + id;
+    @DeleteMapping("/history/delete/{actionId}")
+    public void deleteActionFromHistory(@PathVariable int actionId) {
+        this.historyService.historyActionDelete(actionId);
     }
 
 }
